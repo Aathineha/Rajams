@@ -1,0 +1,28 @@
+package com.example.client.controller;
+
+import com.example.client.model.NbiAlarm;
+import com.example.client.service.AlarmClient;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/client/alarms")
+public class AlarmClientController {
+
+    private final AlarmClient alarmClient;
+
+    public AlarmClientController(AlarmClient alarmClient) {
+        this.alarmClient = alarmClient;
+    }
+
+    @GetMapping
+    public List<NbiAlarm> getAllAlarms() {
+        return alarmClient.getAllAlarms();
+    }
+
+    @GetMapping("/severity/{severity}")
+    public List<NbiAlarm> getAlarmsBySeverity(@PathVariable String severity) {
+        return alarmClient.getAlarmsBySeverity(severity);
+    }
+}
