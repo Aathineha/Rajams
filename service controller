@@ -1,0 +1,28 @@
+package com.example.service.controller;
+
+import com.example.service.model.Alarm;
+import com.example.service.service.AlarmService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/alarms")
+public class AlarmController {
+
+    private final AlarmService alarmService;
+
+    public AlarmController(AlarmService alarmService) {
+        this.alarmService = alarmService;
+    }
+
+    @GetMapping
+    public List<Alarm> getAllAlarms() {
+        return alarmService.getAllAlarms();
+    }
+
+    @GetMapping("/severity/{severity}")
+    public List<Alarm> getAlarmsBySeverity(@PathVariable String severity) {
+        return alarmService.getAlarmsBySeverity(severity);
+    }
+}
