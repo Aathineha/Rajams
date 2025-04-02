@@ -1,0 +1,42 @@
+package com.example.client.service;
+
+import com.example.client.model.Alarm;
+import com.example.client.model.NbiAlarm;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class AlarmClient {
+
+    @Value("${service.base.url}")
+    private String serviceBaseUrl;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
+    public List<NbiAlarm> getAllAlarms() {
+        Alarm[] alarms = restTemplate.getForObject(serviceBaseUrl, Alarm[].class);
+        return convertToNbiFormat(Arrays.asList(alarms));
+    }
+
+    public List<NbiAlarm> getAlarmsBySeverity(String severity) {
+        Alarm[] alarms = restTemplate.getForObject(serviceBaseUrl + "/severity/" + severity, Alarm[].class);
+        return convertToNbiFormat(Arrays.asList(alarms));
+    }
+
+    private List<NbiAlarm> convertToNbiFormat(List<Alarm> alarms) {
+        return alarms.stream().map(alarm -> {
+            NbiAlarm nbiAlarm = new NbiAlarm();
+            nbiAlarm.setAlarmId(alarm.getId());
+            nbiAlarm.setAlarmResource(alarm.getResource());
+            nbiAlarm.setAlarmText(alarm.getText());
+            nbiAlarm.setCreatedTime(alarm.getTimeCreated().toString());
+            nbiAlarm.setAlarmSeverity(alarm.getSeverity());
+            nbiAlarm.setAlarmType(alarm.getTypeId());
+            return nbiAlarm;
+        }).collect(Collectors.toList());
+    }
+}
