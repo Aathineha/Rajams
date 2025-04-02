@@ -1,0 +1,43 @@
+package com.example.Client1.model;
+
+import java.time.LocalDateTime;
+
+public class NbiAlarm {
+    private String id;
+    private String resource;
+    private String text;
+    private LocalDateTime timeCreated;
+    private String severity;
+    private String typeId;
+
+    // Constructor
+    public NbiAlarm(String id, String resource, String text, LocalDateTime timeCreated, String severity, String typeId) {
+        this.id = id;
+        this.resource = resource;
+        this.text = text;
+        this.timeCreated = timeCreated;
+        this.severity = severity;
+        this.typeId = typeId;
+    }
+
+    public NbiAlarm() {}  // No-args constructor
+
+    // Getters and Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getResource() { return resource; }
+    public void setResource(String resource) { this.resource = resource; }
+
+    public String getText() { return text; }
+    public void setText(String text) { this.text = text; }
+
+    public LocalDateTime getTimeCreated() { return timeCreated; }
+    public void setTimeCreated(LocalDateTime timeCreated) { this.timeCreated = timeCreated; }
+
+    public String getSeverity() { return severity; }
+    public void setSeverity(String severity) { this.severity = severity; }
+
+    public String getTypeId() { return typeId; }
+    public void setTypeId(String typeId) { this.typeId = typeId; }
+}
