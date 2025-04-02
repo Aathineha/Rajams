@@ -1,0 +1,13 @@
+package com.example.client.model;
+
+import lombok.Data;
+
+@Data
+public class NbiAlarm {
+    private String alarmId;       
+    private String alarmResource;  
+    private String alarmText;      
+    private String createdTime;    
+    private String alarmSeverity;  
+    private String alarmType;      
+}
