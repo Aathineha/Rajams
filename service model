@@ -1,0 +1,16 @@
+package com.example.service.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import java.time.LocalDateTime;
+
+@Data
+@AllArgsConstructor
+public class Alarm {
+    private String id;
+    private String resource;
+    private String text;
+    private LocalDateTime timeCreated;
+    private String severity;
+    private String typeId;
+}
