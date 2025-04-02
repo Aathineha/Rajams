@@ -1,0 +1,27 @@
+package com.example.service.service;
+
+import com.example.service.model.Alarm;
+import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class AlarmService {
+
+    private static final List<Alarm> ALARMS = List.of(
+        new Alarm("1", "Resource1", "Alarm Text 1", LocalDateTime.now(), "Critical", "TypeA"),
+        new Alarm("2", "Resource2", "Alarm Text 2", LocalDateTime.now(), "Warning", "TypeB"),
+        new Alarm("3", "Resource3", "Alarm Text 3", LocalDateTime.now(), "Minor", "TypeC")
+    );
+
+    public List<Alarm> getAllAlarms() {
+        return ALARMS;
+    }
+
+    public List<Alarm> getAlarmsBySeverity(String severity) {
+        return ALARMS.stream()
+                     .filter(alarm -> alarm.getSeverity().equalsIgnoreCase(severity))
+                     .collect(Collectors.toList());
+    }
+}
